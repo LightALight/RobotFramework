@@ -33,4 +33,6 @@ class ValidateImageCode(object):
         """
 
         text = pytesseract.image_to_string(Image.open(image_address))
+        # image.load()  # 加载一下图片，防止报错，此处可省略
+        # image.show()  # 调用show来展示图片，调试用，可省略
         print(text)
