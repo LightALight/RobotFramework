@@ -8,7 +8,7 @@ Library           Selenium2Library
 Library           Screenshot
 Library           RequestsLibrary
 Library           Collections
-Library           ../04-TestLib/CustomLibrary
+Library           ../04-TestLib/CustomLibrary/
 
 *** Variables ***
 ${env}            alpha.robot

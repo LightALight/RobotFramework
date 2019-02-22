@@ -3,7 +3,7 @@ Resource          ../Resource.robot
 
 *** Keywords ***
 login
-    [Arguments]    ${content}    ${browser_tpye}=gc
+    [Arguments]    ${content}    ${browser_tpye}=${browser_type}
     [Documentation]    [功能描述]
     ...
     ...    通过浏览器访问百度,查询参数content的内容,返回是否查询得到
@@ -13,7 +13,7 @@ login
     ...
     ...    1.content---查询内容(必填:字符串)
     ...
-    ...    2.browser_tpye---浏览器类型(可选 字符串 \ 默认为gc,其他选项 ie ff
+    ...    2.browser_tpye---浏览器类型(可选 字符串 \ 默认为${browser_type},其他选项 ie ff
     ...
     ...
     ...    [返回参数]
