@@ -1,5 +1,4 @@
 *** Settings ***
-*** Settings ***
 Documentation     [特性说明]
 ...
 ...
@@ -53,7 +52,7 @@ Resource          ../../../01-Resource/Resource.robot
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:no
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问huaweicloud
-    Open Browser    https://www.huaweicloud.com    gc    # 用chrome打开网站
+    Open Browser    https://www.huaweicloud.com    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="header"]//*/a[@class="btn js-login"]    ${web_wait_time}    # 等待登录按钮显示
@@ -105,7 +104,7 @@ Resource          ../../../01-Resource/Resource.robot
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:no
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问huaweicloud
-    Open Browser    http://www.ifeng.com    gc    # 用chrome打开网站
+    Open Browser    http://www.ifeng.com    ${browser_type}    # 用chrome打开网站
     Comment    Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    name=username    ${web_wait_time}    # 等待用户名输入框显示
@@ -120,7 +119,7 @@ Resource          ../../../01-Resource/Resource.robot
     Click Element    //*[@id="loginbtn"]    # 登录
     # 3.检查右上角账户名与输入账号信息一致
     Wait Until Element Is Visible    //span[@class="my-acct"]    ${web_wait_time}    # 登录用户信息栏显示
-    Wait Until Element Contains    //span[@class="my-acct"]    hwx481557    ${web_wait_time}    # 登检查用户信息栏是否正确
+    Wait Until Element Contains    //span[@class="my-acct"]    username    ${web_wait_time}    # 登检查用户信息栏是否正确
 
 02-query_phoneNumber
     [Tags]    version:4.0.5    type:api    level:0    author:xiaoming    automatic:no
@@ -162,23 +161,23 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B001---xiaoming---失败,问题单号*********
     ...
     ...    20181113---4.0.5B002---xiaoming---通过
-    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
+    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes    stable:no
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问sailormoon
-    Open Browser    http://www.sailormoon-bbs.com/member.php?mod=logging&action=login    gc    # 用chrome打开网站
+    Open Browser    http://www.sailormoon-bbs.com/member.php?mod=logging&action=login    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //input[contains(@id,'username_')]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //input[contains(@id,'username_')]    kabishou    # 输入用户名
-    Input Password    //input[contains(@id,'password')]    qwerty    # 输入密码
+    Input Text    //input[contains(@id,'username_')]    &{account_sailormoon}[username]    # 输入用户名
+    Input Text    //input[contains(@id,'password')]    &{account_sailormoon}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //button[@name="loginsubmit"]    # 登录
     # 3.进行每日签到
-    Wait Until Element Is Visible    //*[@id="toptb"]//a[text()="kabishou"]    ${web_wait_time}    # 用户名登录成功
+    Wait Until Element Is Visible    //*[@id="toptb"]//a[text()="&{account_sailormoon}[username]"]    ${web_wait_time}    # 用户名登录成功
     Click Element    //div[@id="nv"]//a[text()="每日签到"]    # 点击每日签到
     Wait Until Element Is Visible    //*[@id="kx"]    ${web_wait_time}    # 等待签到表情显示
     Click Element    //*[@id="kx"]    # 选择签到表情
-    Click Element    //*[@id="qiandao"]//a    # 点击签到按钮
+    Click Element    //*[@id="qiandao"]/table/tbody/tr/td/div/a/img    # 点击签到按钮
     Wait Until Element Is Visible    //*[@id="ct"]//h1[text()="您今天已经签到过了或者签到时间还未开始"]    ${web_wait_time}    # 等待显示签到成功
 
 04-login_thbattle
@@ -219,16 +218,16 @@ Resource          ../../../01-Resource/Resource.robot
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问thbattle
-    Open Browser    http://www.thbattle.net/member.php?mod=logging&action=login    gc    # 用chrome打开网站
+    Open Browser    http://www.thbattle.net/member.php?mod=logging&action=login    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //input[contains(@id,'username_')]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //input[contains(@id,'username_')]    kabishou    # 输入用户名
-    Input Password    //input[contains(@id,'password')]    qwerty123    # 输入密码
+    Input Text    //input[contains(@id,'username_')]    &{account_thbattle}[username]    # 输入用户名
+    Input Password    //input[contains(@id,'password')]    &{account_thbattle}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //button[@name="loginsubmit"]    # 登录
     # 3.进行每日签到
-    Wait Until Element Is Visible    //*[@id="um"]//a[text()="kabishou"]    ${web_wait_time}    # 用户名登录成功
+    Wait Until Element Is Visible    //*[@id="um"]//a[text()="&{account_thbattle}[username]"]    ${web_wait_time}    # 用户名登录成功
     Click Element    //div[@id="nv"]//a[text()="每日签到"]    # 点击每日签到
     Wait Until Element Is Visible    //*[@id="kx"]    ${web_wait_time}    # 等待签到表情显示
     Click Element    //*[@id="kx"]    # 选择签到表情

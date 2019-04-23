@@ -105,5 +105,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-.gitignore
 .idea/
+alpha.robot
+beta.robot
+gamma.robot
+product.robot
