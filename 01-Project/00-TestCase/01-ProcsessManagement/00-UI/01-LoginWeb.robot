@@ -49,21 +49,21 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B001---xiaoming---失败,问题单号*********
     ...
     ...    20181113---4.0.5B002---xiaoming---通过
-    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
+    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:no
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问weibufengge
-    Open Browser    http://bbs.weibufengge.com/    gc    # 用chrome打开网站
+    Open Browser    http://bbs.weibufengge.com/    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="ls_username"]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //*[@id="ls_username"]    纯纯男子汉    # 输入用户名
-    Input Password    //*[@id="ls_password"]    qwerty123    # 输入密码
-    sleep    ${fix_wait_time}    # 等待输入完成
+    Input Text    //*[@id="ls_username"]    &{account_weibufengge}[username]    # 输入用户名
+    Input Password    //*[@id="ls_password"]    &{account_weibufengge}[password]    # 输入密码
+    sleep    ${fix_wait_time}    }[username]
     Click Button    //*[@id="lsform"]//button[@type="submit"]    # 登录
     sleep    ${fix_wait_time}    # 再点击一次
     Click Button    //*[@id="lsform"]//button[@type="submit"]    # 登录
     # 3.进行每日签到
-    Wait Until Element Is Visible    //*[@id="um"]//a[text()="纯纯男子汉"]    ${web_wait_time}    # 用户名登录成功
+    Wait Until Element Is Visible    //*[@id="um"]//a[text()="&{account_weibufengge}[username]"]    ${web_wait_time}    # 用户名登录成功
     Click Element    //*[@id="um"]/p[1]/a[8]    # 点击每日签到
     Wait Until Element Is Visible    //*[@id="kx"]    ${web_wait_time}    # 等待签到表情显示
     Click Element    //*[@id="kx"]    # 选择签到表情
@@ -110,16 +110,16 @@ Resource          ../../../01-Resource/Resource.robot
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问banyungong
-    Open Browser    http://www.banyungong.org/    gc    # 用chrome打开网站
+    Open Browser    http://www.banyungong.org/    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="ucHeader1_txtID"]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //*[@id="ucHeader1_txtID"]    leidiannao    # 输入用户名
-    Input Password    //*[@id="ucHeader1_txtPass"]    qwerty    # 输入密码
+    Input Text    //*[@id="ucHeader1_txtID"]    &{account_banyungong}[username]    # 输入用户名
+    Input Password    //*[@id="ucHeader1_txtPass"]    &{account_banyungong}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //*[@id="ucHeader1_btnLogin"]    # 登录
     # 3.进行每日签到
-    Wait Until Element Is Visible    //a[@id="ucHeader1_hlkUser" and text()="leidiannao"]    ${web_wait_time}    # 用户名登录成功
+    Wait Until Element Is Visible    //a[@id="ucHeader1_hlkUser" and text()="&{account_banyungong}[username]"]    ${web_wait_time}    # 用户名登录成功
     Click Element    //*[@id="ucHeader1_hlkDaySign"]    # 点击每日签到
     Wait Until Element Is Visible    //*[@id="btnSign"]    ${web_wait_time}    # 等待签到显示
     Click Element    //*[@id="btnSign"]    # 点击签到按钮
@@ -162,16 +162,10 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B002---xiaoming---通过
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
     Set Log Level    TRACE    # 设置日志等级
-    &{user01}    Create Dictionary    username=aoteman    password=qwerty
-    &{user02}    Create Dictionary    username=克拉斯丁    password=qwerty
-    &{user03}    Create Dictionary    username=大花猫    password=qwerty
-    &{user04}    Create Dictionary    username=阿巴鲁斯    password=qwerty123
-    &{user05}    Create Dictionary    username=kabishou    password=qwerty
-    &{user06}    Create Dictionary    username=seapard    password=qwerty
-    @{user_list}    Create List    ${user01}    ${user02}    ${user03}    ${user04}    ${user05}
-    ...    ${user06}
+    @{user_list}    Create List    ${account_kfgal01}    ${account_kfgal02}    ${account_kfgal03}    ${account_kfgal04}    ${account_kfgal05}
+    ...    ${account_kfgal06}
     # 1.打开浏览器访问kfgal
-    Open Browser    https://bbs.kfgal.com/index.php    gc    # 用chrome打开网站
+    Open Browser    https://bbs.kfgal.com/index.php    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="kf_topuser"]/a    ${web_wait_time}    # 登录显示
@@ -185,8 +179,8 @@ Resource          ../../../01-Resource/Resource.robot
     # 3.进行每日签到
     \    Wait Until Element Is Visible    //*[@id="alldiv"]//a[@title="等级公式：神秘系数*((神秘系数*0.5)+(贡献*5)+(KFB*0.001)+(发帖*0.01))"]    ${web_wait_time}    # 用户名登录成功
     \    Click Link    //*[@id="alldiv"]//a[@title="等级公式：神秘系数*((神秘系数*0.5)+(贡献*5)+(KFB*0.001)+(发帖*0.01))"]    # 点击每日签到
-    \    Wait Until Element Is Visible    //*[@id="alldiv"]/div[4]/div[2]/div[1]/div[3]/table/tbody/tr/td/div[8]/a    ${web_wait_time}    # 等待签到显示
-    \    Click Element    //*[@id="alldiv"]/div[4]/div[2]/div[1]/div[3]/table/tbody/tr/td/div[8]/a    # 点击签到按钮
+    \    Wait Until Element Is Visible    //*[@id="alldiv"]/div[3]/div[2]/div[1]/div[3]/table/tbody/tr/td/div[8]/a    ${web_wait_time}    # 等待签到显示
+    \    Click Element    //*[@id="alldiv"]/div[3]/div[2]/div[1]/div[3]/table/tbody/tr/td/div[8]/a    # 点击签到按钮
     \    Wait Until Page Contains    今天的每日奖励已经领过了，请明天继续。    ${web_wait_time}    # 等待显示签到成功
     \    Mouse Over    //*[@id="kf_topuser"]/a    # 鼠标移动在悬浮菜单
     \    Click Link    //*[@id="kf_information"]//a[text()='退出登录']    # 点击退出登录
@@ -228,35 +222,36 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B002---xiaoming---通过
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
     Set Log Level    TRACE    # 设置日志等级
-    &{user01}    Create Dictionary    username=laimenglaisi    password=qwe123
     # 1.打开浏览器访问sstm
-    Open Browser    https://sstm.moe/    gc    # 用chrome打开网站
+    Open Browser    https://sstm.moe/    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="elUserSignIn"]    ${web_wait_time}    # 登录显示
     Click Link    //*[@id="elUserSignIn"]    # 点击登录链接
     Wait Until Element Is Visible    //*[@id="elUserSignIn_menu"]//input[@name="auth"]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //*[@id="elUserSignIn_menu"]//input[@name="auth"]    ${user01["username"]}    # 输入用户名
-    Input Password    //*[@id="elUserSignIn_menu"]//input[@name="password"]    ${user01["password"]}    # 输入密码
+    Input Text    //*[@id="elUserSignIn_menu"]//input[@name="auth"]    &{account_sstm}[username]    # 输入用户名
+    Input Password    //*[@id="elUserSignIn_menu"]//input[@name="password"]    &{account_sstm}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //*[@id="elSignIn_submit"]    # 登录
     # 3.进行每日签到
     Go to    https://sstm.moe/forum/72-同盟签到区/    # 跳转签到页面
-    Wait Until Element Is Visible    //*[starts-with(@id,"elTable_")]/li[1]/div[2]/h4/span[2]    ${web_wait_time}    # 找到签到帖子
-    Click Element    //*[starts-with(@id,"elTable_")]/li[1]/div[2]/h4/span[2]    # 进入帖子
+    ${yyyy}    ${mm}    ${dd}    Get Time    year,month,day    # 获取当天的年月日
+    ${mm}    Evaluate    "${mm}".lstrip("0")
+    Wait Until Element Is Visible    //*[contains(@title,"${yyyy}/${mm}/${dd}")]/span    ${web_wait_time}    # 找到签到帖子
+    Click Element    //*[contains(@title,"${yyyy}/${mm}/${dd}")]/span    # 进入帖子
     Wait Until Element Is Visible    //*[@id="ipsLayout_mainArea"]//a[text()="回复此主题"]    ${web_wait_time}    # 等待回复帖按钮
     Click Element    //*[@id="ipsLayout_mainArea"]//a[text()="回复此主题"]    # 点击回复帖按钮
     Wait Until Element Is Visible    //*[@id="cke_1_contents"]/div    ${web_wait_time}    # 等待回复输入框显示
-    Input Text    //*[@id="cke_1_contents"]/div    每日签到    # 输入回复内容
+    Input Text    //*[@id="cke_1_contents"]/div    ${yyyy}/${mm}/${dd}在此留名    # 输入回复内容
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //*[@id="ipsLayout_mainArea"]//button[@type="submit"]    # 提交回复内容
     ${status}    Run Keyword And Return Status    Wait Until Page Contains    laimenglaisi 获得了红包    ${web_wait_time}    # 等待显示签到成功
-    Run Keyword If    ${status} == "False"    Click Element    //*[@id="ipsLayout_mainArea"]//a[text()="回复此主题"]    # 点击回复帖按钮    # 输入回复内容
-    Run Keyword If    ${status} == "False"    Wait Until Element Is Visible    //*[@id="cke_1_contents"]/div    ${web_wait_time}    # 等待回复输入框显示
-    Run Keyword If    ${status} == "False"    Input Text    //*[contains(@id,"_contents")]/div    我要红包    # 输入回复内容
-    Run Keyword If    ${status} == "False"    sleep    ${fix_wait_time}    # 等待输入完成
-    Run Keyword If    ${status} == "False"    Click Button    //*[@id="ipsLayout_mainArea"]//button[@type="submit"]    # 提交回复内容
-    Run Keyword If    ${status} == "False"    Wait Until Page Contains    laimenglaisi 获得了红包    ${web_wait_time}    # 等待显示签到成功
+    Run Keyword If    "${status}" == "False"    Click Element    //*[@id="ipsLayout_mainArea"]//a[text()="回复此主题"]    # 点击回复帖按钮    # 输入回复内容
+    Run Keyword If    "${status}" == "False"    Wait Until Element Is Visible    //*[@id="cke_1_contents"]/div    ${web_wait_time}    # 等待回复输入框显示
+    Run Keyword If    "${status}" == "False"    Input Text    //*[contains(@id,"_contents")]/div    我要红包    # 输入回复内容
+    Run Keyword If    "${status}" == "False"    sleep    ${fix_wait_time}    # 等待输入完成
+    Run Keyword If    "${status}" == "False"    Click Button    //*[@id="ipsLayout_mainArea"]//button[@type="submit"]    # 提交回复内容
+    Run Keyword If    "${status}" == "False"    Wait Until Page Contains    laimenglaisi 获得了红包    ${web_wait_time}    # 等待显示签到成功
 
 04-login_hyacg
     [Documentation]    [用例描述]
@@ -295,18 +290,17 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B002---xiaoming---通过
     [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
     Set Log Level    TRACE    # 设置日志等级
-    &{user01}    Create Dictionary    username=leimenglaisi    password=qwerty
     # 1.打开浏览器访问hyacg
-    Open Browser    https://www.hyacg.com/    gc    # 用chrome打开网站
+    Open Browser    https://www.hyacg.com/    ${browser_type}    # 用chrome打开网站
     Maximize Browser Window    # 最大化浏览器
     # 2.输入账号信息登录
     Wait Until Element Is Visible    //*[@id="ls_username"]    ${web_wait_time}    # 等待用户名输入框显示
-    Input Text    //*[@id="ls_username"]    ${user01["username"]}    # 输入用户名
-    Input Password    //*[@id="ls_password"]    ${user01["password"]}    # 输入密码
+    Input Text    //*[@id="ls_username"]    &{account_hyacg}[username]    # 输入用户名
+    Input Password    //*[@id="ls_password"]    &{account_hyacg}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //*[@id="lsform"]//button[@type="submit"]    # 登录
     # 3.进行每日签到
-    Wait Until Element Is Visible    //*[@id="um"]//a[contains(text(),${user01["username"]})]    ${web_wait_time}    # 用户名登录成功
+    Wait Until Element Is Visible    //*[@id="um"]//a[contains(text(),&{account_hyacg}[username])]    ${web_wait_time}    # 用户名登录成功
     Go to    https://www.hyacg.com/hy/sign/    # 进入签到页面
     Wait Until Element Is Visible    //*[@id="an_sign"]    ${web_wait_time}    # 等待签到按钮显示
     Click Element    //*[@id="an_sign"]    # 点击签到按钮
