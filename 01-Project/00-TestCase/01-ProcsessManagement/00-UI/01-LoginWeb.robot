@@ -107,7 +107,7 @@ Resource          ../../../01-Resource/Resource.robot
     ...    20181113---4.0.5B001---xiaoming---失败,问题单号*********
     ...
     ...    20181113---4.0.5B002---xiaoming---通过
-    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:yes
+    [Tags]    version:4.0.5    type:ui    level:0    author:xiaoming    automatic:no
     Set Log Level    TRACE    # 设置日志等级
     # 1.打开浏览器访问banyungong
     Open Browser    http://www.banyungong.org/    ${browser_type}    # 用chrome打开网站
@@ -237,6 +237,7 @@ Resource          ../../../01-Resource/Resource.robot
     Go to    https://sstm.moe/forum/72-同盟签到区/    # 跳转签到页面
     ${yyyy}    ${mm}    ${dd}    Get Time    year,month,day    # 获取当天的年月日
     ${mm}    Evaluate    "${mm}".lstrip("0")
+    ${dd}    Evaluate    "${dd}".lstrip("0")
     Wait Until Element Is Visible    //*[contains(@title,"${yyyy}/${mm}/${dd}")]/span    ${web_wait_time}    # 找到签到帖子
     Click Element    //*[contains(@title,"${yyyy}/${mm}/${dd}")]/span    # 进入帖子
     Wait Until Element Is Visible    //*[@id="ipsLayout_mainArea"]//a[text()="回复此主题"]    ${web_wait_time}    # 等待回复帖按钮
@@ -299,6 +300,8 @@ Resource          ../../../01-Resource/Resource.robot
     Input Password    //*[@id="ls_password"]    &{account_hyacg}[password]    # 输入密码
     sleep    ${fix_wait_time}    # 等待输入完成
     Click Button    //*[@id="lsform"]//button[@type="submit"]    # 登录
+    sleep    ${fix_wait_time}    # 等待确定
+    Reload Page
     # 3.进行每日签到
     Wait Until Element Is Visible    //*[@id="um"]//a[contains(text(),&{account_hyacg}[username])]    ${web_wait_time}    # 用户名登录成功
     Go to    https://www.hyacg.com/hy/sign/    # 进入签到页面
