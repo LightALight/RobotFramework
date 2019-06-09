@@ -110,3 +110,5 @@ alpha.robot
 beta.robot
 gamma.robot
 product.robot
+
+/PIPENV_VENV_IN_PROJECT/

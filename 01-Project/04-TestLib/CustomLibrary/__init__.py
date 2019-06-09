@@ -14,7 +14,7 @@ Function:
 -----------------------------------------------------
 """
 
-from ValidateImageCode import ValidateImageCode
+from .ValidateImageCode import ValidateImageCode
 
 __version__ = '0.1'  # 版本号
 

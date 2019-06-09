@@ -23,7 +23,6 @@ getApi
     ...    [返回参数]
     ...
     ...    1.content---查询内容(字符串)
-    ...
     Create Session    session    ${url}    # 创建会话
     ${resp}    Get Request    session    ${uri}    params=${params}    headers=${headers}    # 发送请求
     log    ${resp}
@@ -55,10 +54,9 @@ postApi
     ...    [返回参数]
     ...
     ...    1.content---查询内容(字符串)
-    ...
     Create Session    session    ${url}    # 创建会话
     ${resp}    Post Request    session    ${uri}    data=${data}    params=${params}    headers=${headers}
-    ...    # 发送请求
+    ...    发送请求
     log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${content}    Set Variable    ${resp.content}
